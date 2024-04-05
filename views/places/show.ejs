@@ -14,5 +14,9 @@
     <a href="/places">Back to All Places</a>
     <br>
     <a href="/places/<%= place._id %>/edit">Edit Place</a>
+    <br>
+    <form action="/places/<%= place._id %>?_method=DELETE" method="POST">
+        <button type="submit">Delete</button>
+    </form>
 </body>
 </html>
