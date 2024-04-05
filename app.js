@@ -4,7 +4,7 @@ const path = require('path')
 const app = express()
 
 // import model
-const Place = require('./model/place')
+const Place = require('./models/place')
 
 // connet mongoose databases
 mongoose.connect('mongodb://localhost:27017/bestpoints')
@@ -20,19 +20,20 @@ app.get('/', (req, res)=>{
     res.render('home')
 })
 
-app.get('/seed/place', async (req, res)=>{
-    const place = new Place({
-        title: 'Pantai Kuta',
-        price: 'Rp. 100.000',
-        description: 'Pantai yang indah',
-        location: 'Bali'
-    })
+// app.get('/seed/place', async (req, res)=>{
+//     const place = new Place({
+//         title: 'Pantai Kuta',
+//         price: 'Rp. 100.000',
+//         description: 'Pantai yang indah',
+//         location: 'Bali'
+//     })
 
-    await place.save()
-    res.send(place)
-})
+//     await place.save()
+//     res.send(place)
+// })
 
 // setting port
+
 app.listen(3000, ()=>{
     console.log('Server is running on http://localhost:3000')
 })
