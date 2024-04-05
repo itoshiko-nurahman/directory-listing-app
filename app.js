@@ -1,5 +1,6 @@
 const express = require('express')
 const mongoose = require('mongoose')
+const methodOverride = require('method-override')
 const path = require('path')
 const app = express()
 
@@ -17,6 +18,7 @@ app.set('views', path.join(__dirname, 'views'))
 
 //middleware
 app.use(express.urlencoded({extended: true}))
+app.use(methodOverride('_method'))
 
 // render halaman
 app.get('/', (req, res)=>{
@@ -42,6 +44,17 @@ app.get('/places/:id', async(req, res)=>{
     const { id } = req.params
     const place = await Place.findById(id)
     res.render('places/show',{place})
+})
+
+app.get('/places/:id/edit', async(req, res)=>{
+    const {id} = req.params
+    const place = await Place.findById(id)
+    res.render('places/edit', {place})
+})
+
+app.put('/places/:id', async(req, res)=>{
+    await Place.findByIdAndUpdate(req.params.id, req.body.place)
+    res.redirect('/places')
 })
 
 // app.get('/seed/place', async (req, res)=>{
